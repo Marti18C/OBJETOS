@@ -26,10 +26,14 @@ function draw() {
 class RandomWalek {
     constructor(_name) {
 
+        this.red = random(0, 50);
+        this.green = random(100, 255);
+        this.blue = random(100, 150);
+
         this.name = _name;
-        this.posX = random(width);
-        this.posY = random(height);
-        this.speed = random(4);
+        this.posX = width / 2;
+        this.posY = height / 2;
+        this.speed = random(2, 10);
         this.diametro = random(10, 50);
         print('Hola, soy la pelota' + this.name);
 
@@ -40,6 +44,7 @@ class RandomWalek {
 
     }
     display() {
+        fill(this.red, this.green, this.blue)
         ellipse(this.posX, this.posY, this.diametro, this.diametro);
 
     }
