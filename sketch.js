@@ -1,39 +1,37 @@
-let pelota1;
-let pelota2;
-let pelota3;
+let nPelotas = 100;
+let pelotas = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    pelota1 = new RandomWalek();
-    pelota2 = new RandomWalek();
-    pelota3 = new RandomWalek();
+    for (let i = 0; i < nPelotas; i++) {
+        pelotas[i] = new RandomWalek(i);
+    }
 }
 
 function draw() {
-    pelota1.update();
-    pelota1.display();
 
-    pelota2.update();
-    pelota2.display();
+    for (let i = 0; i < nPelotas; i++) {
+        pelotas[i].update();
+        pelotas[i].display();
+    }
 
-    pelota3.update();
-    pelota3.display();
 }
 
 //------------------------
 //-----CLASES-------------
 //------------------------
-
 //--------------Random Walker
 //---------------------------
 
 class RandomWalek {
-    constructor() {
+    constructor(_name) {
+
+        this.name = _name;
         this.posX = random(width);
         this.posY = random(height);
         this.speed = random(4);
         this.diametro = random(10, 50);
-        print('Holass');
+        print('Hola, soy la pelota' + this.name);
 
     }
     update() {
