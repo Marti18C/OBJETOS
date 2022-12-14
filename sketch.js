@@ -25,11 +25,14 @@ function draw() {
 }
 
 function mouseClicked() {
-    background("rgba(255, 255, 255, .2)");
-    for (let i = 0; i < 200; i++) {
+    background("rgba(0, 0, 0, .5)");
+    for (let i = 0; i < 1000; i++) {
         let nuevaPlanta = new Plantita(mouseX, mouseY);
         pelotas.push(nuevaPlanta);
+
     }
+
+
 
 
     //let nuevaPlanta = new Plantita(mouseX, mouseY);
@@ -47,27 +50,27 @@ function mouseClicked() {
 class Plantita {
     constructor(_mouseX, _mouseY) {
 
-        this.red = random(150, 255);
-        this.green = random(100, 255);
-        this.blue = random(100, 150);
+        this.red = random(20, 40);
+        this.green = random(150, 40);
+        this.blue = random(150, 40);
 
         this.t = 0;
-        this.tSpeed = random(0.2);
+        this.tSpeed = random(0.9);
         this.noiseShift = random(1000);
         this.lifeSpam = int(random(30, 50));
 
         this.isAlive = true;
 
         this.pos = createVector(_mouseX, mouseY);
-        this.speed = createVector(random(-4, 4), random(-4, 4));
-        this.diametro = random(10, 30);
+        this.speed = createVector(random(-20, 0), random(0, 20));
+        this.diametro = random(0, 30);
         this.bolitaFinal = this.diametro / 1.5;
         print('Hola: viviré ' + this.lifeSpam + ' frames.');
 
     }
     update(_t) {
 
-        this.speed.rotate(map(noise(this.t + this.noiseShift), 0, 1, -0.1, 0.1));
+        this.speed.rotate(map(noise(this.t + this.noiseShift), 300, 80, 100, 1000));
 
         this.pos.add(this.speed)
         this.t += this.tSpeed;
@@ -76,8 +79,9 @@ class Plantita {
 
     }
     display() {
-        stroke("rgba(1, 1, 1, .2)");
-        strokeWeight(3);
+        stroke("rgba(255, 255, 255, .2)");
+        strokeWeight(9);
+        //noStroke();
         fill(this.red, this.green, this.blue)
         ellipse(this.pos.x, this.pos.y, this.diametro, this.diametro);
         if (this.lifeSpam <= 0) {
@@ -86,10 +90,11 @@ class Plantita {
 
     }
     muriending() {
-        this.diametro -= 0.6;
-        if (this.diametro <= 0) {
+        this.diametro -= 0.01;
+        if (this.diametro <= 2) {
             this.isAlive = false;
             print("me morí, porque mi vida es " + this.isAlive);
+            fill("rgba(255, 255, 255, .9)");
             ellipse(this.pos.x, this.pos.y, this.bolitaFinal, this.bolitaFinal);
         }
 
